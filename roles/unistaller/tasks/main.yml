@@ -1,0 +1,3 @@
+---
+- name: "This task is going to uninstall nginx"
+  apt: name=nginx state=absent purge=yes

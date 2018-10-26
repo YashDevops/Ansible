@@ -1,0 +1,4 @@
+---
+- name: install tomcat8 
+  apt: name=tomcat8 state=present update_cache=yes
+  notify: restart tomcat

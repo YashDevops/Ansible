@@ -2,5 +2,4 @@
 - hosts: jenkins
   become: true
   roles:
-    - java
-    - jenkins
+    - nginx

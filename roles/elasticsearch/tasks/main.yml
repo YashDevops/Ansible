@@ -1,0 +1,29 @@
+---
+- name: Install a .deb package from the internet.
+  apt: deb=https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.3.1/elasticsearch-2.3.1.deb
+- name: Start the elasticsearch service
+  service: name=elasticsearch state=started
+- name: Check if elasticsearch is running
+  command: systemctl enable elasticsearch.service
+  ignore_errors: yes
+  changed_when: false
+  register: service_elastic_status
+
+- name: Report status of elasticsearch
+  fail:
+    msg: |
+      Service elasticsearch is not running.
+      Output of `systemctl status elasticsearch`:
+      {{ service_elastic_status.stdout }}
+      {{ service_elastic_status.stderr }}
+  when: service_elastic_status | failed
+
+- name: Check if the port is open active or not
+  wait_for:
+    port: 9200
+    delay: 10
+- name: Final Checking
+  command: curl localhost:9200 warn=False
+  register: output
+- name: You Know | For Search
+  debug: msg="{{ output.stdout }}"

@@ -1,11 +1,14 @@
 ---
 - name: Install add-apt-repostory
   become: yes
-  apt: name=software-properties-common state=latest
+  apt: name=software-properties-common state=latest 
 
 - name: Add Oracle Java Repository
   become: yes
   apt_repository: repo='ppa:webupd8team/java'
+- name: update the cache
+  become: true
+  apt: update_cache=yes
 
 - name: Accept Java 8 License
   become: yes

@@ -1,0 +1,31 @@
+---
+- name: install software for Hygieia
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - git
+- name: Download foo.conf
+  get_url:
+    url: http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+    dest: /opt/
+    mode: 755
+- name: Extract archive
+  unarchive:
+    src: apache-maven-3.5.4-bin.tar.gz
+    dest: /opt/
+    extra_opts: [--strip-components=1]
+- name: Setting up Space Galaxy Configuration
+  command: ln -s apache-maven-3.5.4 apache-maven
+- name: Writing some new configuration for maven
+  lineinfile:
+    path: /etc/profile.d/apache-maven.sh
+    line: 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+          export M2_HOME=/usr/local/apache-maven
+          export MAVEN_HOME=/usr/local/apache-maven
+          export PATH=${M2_HOME}/bin:${PATH}'
+- name: Sourcing maven with new configuration
+  command: source /etc/profile.d/apache-maven.sh
+
+- name: Final Check for version
+  command: mvn -version
+  register: check
+- debug: msg="{{ check.stdout }}"

@@ -1,2 +1,2 @@
 [jenkins]
-13.233.24.235 ansible_connection=ssh ansible_ssh_user=ubuntu ansible_python_interpreter=/usr/bin/python3
+13.233.156.209 ansible_connection=ssh ansible_ssh_user=ubuntu ansible_python_interpreter=/usr/bin/python3

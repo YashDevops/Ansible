@@ -1,0 +1,4 @@
+---
+- name: start mongodb
+  systemd: name=mongodb state=started enabled=yes
+  

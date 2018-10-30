@@ -10,24 +10,16 @@
     dest=/etc/apt/sources.list.d/mongodb-org-3.2.list
     state=present
     create=yes
-- name: creating a mongodb configuration file
-  file: path=/etc/systemd/system/mongodb.service state=touch 
-- name: Update the conf fiel
-  lineinfile:
-    dest=/etc/systemd/system/mongodb.service
-    line="----------------------------
-              [Unit]
-            Description=High-performance, schema-free document-oriented database
-            After=network.target
+- name: copying configurations
+  become: yes
+  copy:
+    src: /home/yash/scripts/ansibles-final/roles/mongodb/files/mongodb.service
+    dest: /etc/systemd/system/mongodb.service
 
-              [Service]
-            User=mongodb
-            ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
 
-              [Install]
-            WantedBy=multi-user.target
-          ----------------------------------"
     
 - name: Install mongo
   apt: name=mongodb-org state=present update_cache=yes
   notify: start mongodb
+
+

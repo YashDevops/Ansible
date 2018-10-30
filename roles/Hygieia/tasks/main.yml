@@ -1,1 +1,47 @@
- 
+---
+- name: installing python tools
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - build-essential
+    - python-dev
+    - python3-pip
+    - ruby
+    - gdebi
+
+- name: install pip modules
+  pip:
+    name: pymongo
+    version: 3.4.0
+    executable: pip3
+
+- name: Create MongoDB root user siteRootAdmin
+  mongodb_user:
+    login_port: "27017"
+    database: "admin"
+    name: "admin"
+    password: "admin"
+    roles: "userAdminAnyDatabase" 
+
+- name: Create MongoDB root user siteRootAdmin
+  mongodb_user:
+    login_user: "admin"
+    login_password: "admin"
+    login_port: "27017"
+    database: "dashboarddb"
+    name: "dashboarduser"
+    password: "dbpassword"
+    roles: "readWrite" 
+
+- name: Installing node.js package globally.
+  npm: name={{item}} global=yes
+  with_items:
+    - bower
+    - gulp
+
+- git:
+    repo: https://github.com/capitalone/Hygieia.git 
+    dest: /opt/Hygieia
+    force: yes
+
+- name: clean install using mvn
+  shell: cd /opt/Hygieia; /usr/bin/mvn clean package -DskipTests

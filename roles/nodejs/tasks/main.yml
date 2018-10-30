@@ -1,0 +1,6 @@
+---
+- name: curl request
+  shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+  
+- name: install nodejs legacy
+  apt: name=nodejs state=latest update_cache=yes

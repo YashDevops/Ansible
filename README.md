@@ -1,6 +1,6 @@
-# Ansible
+# Ansible :octocat:
 
-#### This Repo contains various general and common roles you might use on daily basis. To make it more resuable i have written down some common roles. Continious updation is going on this Repo.
+#### This Repo contains various and general ansible playbook 
 
 
 ## How to use

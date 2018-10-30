@@ -46,7 +46,7 @@ We use [GIT](https://git-scm.com/) for versioning. For the versions available, s
 
 ## Authors
 
-* **Yash Kumar Shah** - *Initial work* - [PurpleBooth](https://github.com/YashDevops)
+* **Yash Kumar Shah** - *Initial work* - [YashDevops](https://github.com/YashDevops)
 
 ## License
 
